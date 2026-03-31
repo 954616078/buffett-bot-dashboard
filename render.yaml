@@ -3,7 +3,7 @@ services:
     name: buffett-bot-dashboard
     runtime: python
     plan: free
-    buildCommand: pip install -r requirements.txt
+    buildCommand: pip install -r requirements-dashboard.txt
     startCommand: python run_dashboard.py
     envVars:
       - key: DASHBOARD_HOST
