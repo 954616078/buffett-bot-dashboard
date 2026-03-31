@@ -127,6 +127,23 @@ class PaperTrader:
                 )
                 """
             )
+            # Backward-compatible migration for older DBs that were created
+            # before some columns existed.
+            columns = {
+                str(row[1])
+                for row in conn.execute("PRAGMA table_info(paper_orders)").fetchall()
+            }
+            required_columns = {
+                "notional": "REAL NOT NULL DEFAULT 0",
+                "reason": "TEXT NOT NULL DEFAULT ''",
+                "realized_pnl": "REAL NOT NULL DEFAULT 0",
+                "cash_after": "REAL NOT NULL DEFAULT 0",
+                "equity_after": "REAL NOT NULL DEFAULT 0",
+                "risk_pct_after": "REAL NOT NULL DEFAULT 0",
+            }
+            for name, ddl in required_columns.items():
+                if name not in columns:
+                    conn.execute(f"ALTER TABLE paper_orders ADD COLUMN {name} {ddl}")
             conn.commit()
 
     def _ensure_account(self) -> None:

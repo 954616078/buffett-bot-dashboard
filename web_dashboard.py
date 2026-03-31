@@ -455,9 +455,29 @@ def api_daily_comment() -> Any:
 
 @app.get("/api/fund-metrics")
 def api_fund_metrics() -> Any:
-    with _connect() as conn:
-        summary = _compute_summary()
-        return jsonify(compute_fund_metrics(conn, float(summary["equity"])))
+    try:
+        with _connect() as conn:
+            summary = _compute_summary()
+            return jsonify(compute_fund_metrics(conn, float(summary["equity"])))
+    except Exception:
+        # Keep dashboard usable even if analytics fail on legacy schema.
+        return jsonify(
+            {
+                "closed_trades": 0,
+                "win_rate_pct": 0.0,
+                "avg_win": 0.0,
+                "avg_loss": 0.0,
+                "profit_factor": 0.0,
+                "max_drawdown_pct": 0.0,
+                "sharpe": 0.0,
+                "turnover_x": 0.0,
+                "risk": {
+                    "enabled": True,
+                    "can_open_new_positions": True,
+                    "triggered_reasons": [],
+                },
+            }
+        )
 
 
 @app.post("/api/run/scan")
