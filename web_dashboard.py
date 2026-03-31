@@ -14,8 +14,11 @@ from flask import Flask, jsonify, redirect, render_template, request, session, u
 
 from ai_reminder import send_to_telegram
 from config import DB_PATH, PAPER_INITIAL_CASH, TELEGRAM_TARGET
+from database import init_db
+from paper_trader import PaperTrader
 from portfolio_analytics import compute_fund_metrics
 from runtime_settings import get_setting, get_settings, init_runtime_settings, set_setting
+from seed_loader import seed_if_empty
 
 BASE_DIR = Path(__file__).resolve().parent
 app = Flask(__name__, template_folder=str(BASE_DIR / "templates"), static_folder=str(BASE_DIR / "static"))
@@ -486,7 +489,15 @@ def api_run_telegram() -> Any:
     return jsonify({"ok": True, "message": f"已推送到 {target}"})
 
 
-init_runtime_settings()
+def _bootstrap_storage() -> None:
+    init_db()
+    init_runtime_settings()
+    # Ensure paper trading tables exist before optional seeding.
+    PaperTrader()
+    seed_if_empty(DB_PATH, str(BASE_DIR / "seed_data.json"))
+
+
+_bootstrap_storage()
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8080, debug=False)
