@@ -1,0 +1,13 @@
+import sqlite3
+conn = sqlite3.connect('C:/Users/Administrator/Documents/Playground/Trend_OB_AI/trades.db')
+c = conn.cursor()
+c.execute("SELECT COUNT(*) FROM trades WHERE date LIKE '2026-03-17%'")
+print('Today records:', c.fetchone()[0])
+c.execute("SELECT COUNT(DISTINCT stock) FROM trades WHERE date LIKE '2026-03-17%'")
+print('Today stocks:', c.fetchone()[0])
+c.execute("SELECT COUNT(*) FROM paper_orders")
+print('Orders:', c.fetchone()[0])
+c.execute("SELECT cash, equity FROM paper_account")
+acc = c.fetchone()
+print('Account:', acc)
+conn.close()

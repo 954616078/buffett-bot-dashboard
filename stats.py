@@ -1,0 +1,10 @@
+import sqlite3
+conn = sqlite3.connect('C:/Users/Administrator/Documents/Playground/Trend_OB_AI/trades.db')
+c = conn.cursor()
+c.execute('SELECT COUNT(*) FROM trades')
+print('总记录:', c.fetchone()[0])
+c.execute("SELECT COUNT(*) FROM trades WHERE trend='UPTREND' OR trend='DOWNTREND'")
+print('有趋势:', c.fetchone()[0])
+c.execute("SELECT COUNT(*) FROM trades WHERE ob_signal='BUY_PRESSURE' OR ob_signal='SELL_PRESSURE'")
+print('有OB信号:', c.fetchone()[0])
+conn.close()

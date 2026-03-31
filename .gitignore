@@ -1,0 +1,22 @@
+# Runtime
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Local DB and logs
+trades.db
+logs/
+cf.log
+cf_out.log
+cf_err.log
+lt.log
+
+# Local tunnel/bin artifacts
+cloudflared.exe
+
+# Env
+.env
+
+# Playwright MCP artifacts
+.playwright-mcp/

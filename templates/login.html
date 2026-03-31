@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Buffett BOT &#30331;&#24405;</title>
+  <link rel="stylesheet" href="/static/dashboard.css" />
+</head>
+<body>
+  <main class="container">
+    <section class="card auth-card">
+      <h1>Buffett BOT &#30331;&#24405;</h1>
+      <p class="muted">&#35831;&#36755;&#20837;&#31649;&#29702;&#36134;&#21495;&#21644;&#23494;&#30721;&#12290;</p>
+      {% if error %}
+      <p class="bad">{{ error }}</p>
+      {% endif %}
+      <form method="post" action="/login" class="auth-form">
+        <label>&#36134;&#21495;</label>
+        <input type="text" name="username" required />
+        <label>&#23494;&#30721;</label>
+        <input type="password" name="password" required />
+        <button type="submit">&#30331;&#24405;</button>
+      </form>
+    </section>
+  </main>
+</body>
+</html>

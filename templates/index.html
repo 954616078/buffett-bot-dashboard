@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Buffett BOT &#25511;&#21046;&#21488;</title>
+  <link rel="stylesheet" href="/static/dashboard.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <main class="container">
+    <section class="topbar">
+      <div>
+        <h1>Buffett BOT &#25511;&#21046;&#21488;</h1>
+        <p class="muted">&#36235;&#21183; + &#35746;&#21333;&#31807; + &#27169;&#25311;&#20132;&#26131;</p>
+      </div>
+      <div class="actions">
+        <button id="runScan">&#25191;&#34892;&#25195;&#25551;</button>
+        <button id="runReview">&#25191;&#34892;&#22797;&#30424;</button>
+        <button id="sendTelegram">&#25512;&#36865; Telegram</button>
+        <form method="post" action="/logout">
+          <button type="submit" class="danger">&#36864;&#20986;&#30331;&#24405;</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="grid stats" id="stats"></section>
+    <section class="grid stats" id="fundStats"></section>
+
+    <section class="grid two">
+      <article class="card">
+        <h2>&#26435;&#30410;&#26354;&#32447;&#65288;&#36817;60&#31508;&#65289;</h2>
+        <canvas id="equityChart" class="chart-compact"></canvas>
+      </article>
+      <article class="card">
+        <h2>&#27599;&#26085; AI &#35780;&#35821;</h2>
+        <div id="dailyComment" class="task-box"></div>
+      </article>
+    </section>
+
+    <section class="grid two">
+      <article class="card">
+        <h2>&#20219;&#21153;&#29366;&#24577;</h2>
+        <div id="taskBox" class="task-box"></div>
+      </article>
+      <article class="card">
+        <h2>&#24403;&#21069;&#25345;&#20179;</h2>
+        <div class="table-wrap">
+          <table id="positionsTable">
+            <thead>
+              <tr>
+                <th>&#20195;&#30721;</th><th>&#25968;&#37327;</th><th>&#25104;&#26412;</th><th>&#29616;&#20215;</th><th>&#28014;&#30408;&#20111;</th><th>&#26356;&#26032;&#26102;&#38388;</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </article>
+    </section>
+
+    <section class="grid two">
+      <article class="card">
+        <h2>&#26368;&#26032;&#26377;&#25928;&#20449;&#21495;</h2>
+        <div class="table-wrap">
+          <table id="signalsTable">
+            <thead>
+              <tr>
+                <th>&#26102;&#38388;</th><th>&#20195;&#30721;</th><th>&#20215;&#26684;</th><th>&#36235;&#21183;</th><th>OB</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </article>
+      <article class="card">
+        <h2>&#20132;&#26131;&#27969;&#27700;</h2>
+        <div class="table-wrap">
+          <table id="ordersTable">
+            <thead>
+              <tr>
+                <th>&#26102;&#38388;</th><th>&#20195;&#30721;</th><th>&#21160;&#20316;</th><th>&#25968;&#37327;</th><th>&#20215;&#26684;</th><th>&#30408;&#20111;</th><th>&#21407;&#22240;</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </article>
+    </section>
+
+    <section class="card">
+      <h2>&#31574;&#30053;&#21442;&#25968;&#35774;&#32622;</h2>
+      <p class="muted">&#20445;&#23384;&#21518;&#20889;&#20837;&#25968;&#25454;&#24211;&#65292;&#19979;&#19968;&#27425;&#25195;&#25551;&#20250;&#33258;&#21160;&#20351;&#29992;&#26032;&#21442;&#25968;&#12290;</p>
+      <div id="settingsForm" class="settings-grid"></div>
+      <div class="actions">
+        <button id="saveSettings">&#20445;&#23384;&#21442;&#25968;</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="/static/dashboard.js"></script>
+</body>
+</html>
